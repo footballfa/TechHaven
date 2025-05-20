@@ -7,6 +7,7 @@
         public  int Quantaty { get; set; }
         public int Price { get; set; }
         public string Stock { get; set; }
+        public OrderDetail OrderDetail { get; set; }
         public ICollection<Suppliers> Supplier { get; set; }
 
     }
