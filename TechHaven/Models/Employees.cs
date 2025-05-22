@@ -6,5 +6,6 @@
         public string EmployeeName { get; set; }
         public string EmployeeRole { get; set; }
         public int LoginCredentials { get; set; }
+        public Order order { get; set; }
     }
 }
