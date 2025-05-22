@@ -1,4 +1,8 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<TechHavenContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TechHavenContext") ?? throw new InvalidOperationException("Connection string 'TechHavenContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
