@@ -21,4 +21,6 @@ public DbSet<TechHaven.Models.OrderDetail> OrderDetail { get; set; } = default!;
 public DbSet<TechHaven.Models.Products> Products { get; set; } = default!;
 
 public DbSet<TechHaven.Models.Suppliers> Suppliers { get; set; } = default!;
+
+public DbSet<TechHaven.Models.Employee> Employee { get; set; } = default!;
     }

@@ -1,7 +1,8 @@
 ﻿namespace TechHaven.Models
 {
-    public class Employees
+    public class Employee
     {
+        
         public int EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string EmployeeRole { get; set; }
