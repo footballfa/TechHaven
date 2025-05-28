@@ -1,8 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using TechHaven.Areas.Identity.Data;
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<TechHavenContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TechHavenContext") ?? throw new InvalidOperationException("Connection string 'TechHavenContext' not found.")));
+var connectionString = builder.Configuration.GetConnectionString("TechHavenContextConnection") ?? throw new InvalidOperationException("Connection string 'TechHavenContextConnection' not found.");
+
+builder.Services.AddDbContext<TechHavenContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TechHavenContext>();
+
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
