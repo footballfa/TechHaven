@@ -56,7 +56,7 @@ namespace TechHaven.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderDetailID,Quantaty,Price")] OrderDetail orderDetail)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(orderDetail);
                 await _context.SaveChangesAsync();
@@ -93,7 +93,7 @@ namespace TechHaven.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
