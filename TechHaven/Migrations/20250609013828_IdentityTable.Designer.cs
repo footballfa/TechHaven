@@ -12,8 +12,8 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250605000212_solvingerrors")]
-    partial class solvingerrors
+    [Migration("20250609013828_IdentityTable")]
+    partial class IdentityTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +235,10 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -248,6 +252,9 @@ namespace TechHaven.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Phone")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID");

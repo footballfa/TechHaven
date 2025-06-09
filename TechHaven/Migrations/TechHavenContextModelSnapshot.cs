@@ -232,6 +232,10 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -245,6 +249,9 @@ namespace TechHaven.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Phone")
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID");

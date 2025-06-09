@@ -54,7 +54,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerID,FirstName,LastName,Email,Password,Phone,Address")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerID,FirstName,LastName,Email,Phone,Address")] Customer customer)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FirstName,LastName,Email,Password,Phone,Address")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FirstName,LastName,Email,Phone,Address")] Customer customer)
         {
             if (id != customer.CustomerID)
             {
