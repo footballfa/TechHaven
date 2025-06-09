@@ -10,6 +10,13 @@ namespace TechHaven.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<string>(
+                name: "ProductName",
+                table: "OrderDetail",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.AlterColumn<int>(
                 name: "TottalPrice",
                 table: "Order",
@@ -17,6 +24,13 @@ namespace TechHaven.Migrations
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
+
+            migrationBuilder.AddColumn<string>(
+                name: "ProductName",
+                table: "Order",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "Address",
@@ -36,6 +50,14 @@ namespace TechHaven.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "ProductName",
+                table: "OrderDetail");
+
+            migrationBuilder.DropColumn(
+                name: "ProductName",
+                table: "Order");
+
             migrationBuilder.DropColumn(
                 name: "Address",
                 table: "Customer");

@@ -12,7 +12,7 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250609013828_IdentityTable")]
+    [Migration("20250609213817_IdentityTable")]
     partial class IdentityTable
     {
         /// <inheritdoc />
@@ -307,6 +307,10 @@ namespace TechHaven.Migrations
                     b.Property<int>("OrderDetailID")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TottalPrice")
                         .HasColumnType("int");
 
@@ -327,6 +331,10 @@ namespace TechHaven.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantaty")
                         .HasColumnType("int");

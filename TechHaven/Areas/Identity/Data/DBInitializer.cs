@@ -8,10 +8,51 @@ namespace TechHaven.Areas.Identity.Data
 
         internal static void Initialize(TechHavenContext context)
         {
+
+            // Look for any students. 
+
+            if (context.Customer.Any())
+
+            {
+
+                return;   // DB has been seeded 
+
+            }
+
+
+
+            var customers = new Customer[]
+
+            {
+
+                new Customer { FirstName = "Alex", LastName = "Benjaman", Email = "Alex31@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand" },
+                new Customer { FirstName = "Bob", LastName = "The Builder", Email = "Bob123@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand" },
+                new Customer {FirstName = "Michael", LastName = "Joradn", Email = "Michael531@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "Mike", LastName = "Tyson", Email = "Mike@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "Max", LastName = "farewel", Email = "Max@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "Jhon", LastName = "Jones", Email = "Jhon@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "David", LastName = "Hallen", Email = "David@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "William", LastName = "Finn", Email = "William@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "Joe", LastName = "Rogan", Email = "Joe@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+                new Customer {FirstName = "Khabib", LastName = "Nurmagomedov", Email = "Khabib@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand"},
+
+            };
+
+            foreach (Customer c in customers)
+
+            {
+
+                context.Customer.Add(c);
+
+            }
+
+            context.SaveChanges();
+
+
             context.Database.EnsureCreated();
 
 
-            var artists = new Employee[]
+            var Employees = new Employee[]
            {
                  new Employee {EmployeeName = "William", EmployeeRole = "Receptionist", LoginCredentials = 5345 },
                  new Employee {EmployeeName = "Ahmad", EmployeeRole = "Receptionist", LoginCredentials = 5332 },
@@ -23,12 +64,14 @@ namespace TechHaven.Areas.Identity.Data
                  new Employee {EmployeeName = "Jones", EmployeeRole = "Receptionist", LoginCredentials = 2457},
                  new Employee { EmployeeName = "Suria", EmployeeRole = "Receptionist", LoginCredentials = 1467 },
                  new Employee {EmployeeName = "Ronaldo", EmployeeRole = "Receptionist", LoginCredentials = 4678 },
-           };
-            foreach (Employee e in Employees)
-            {
+                  };
+                foreach (Employee e in Employees)
+                 {
                 context.Employee.Add(e);
-            }
+                  }
             context.SaveChanges();
+
+            context.Database.EnsureCreated();
 
             var Orders = new Order[]
             {

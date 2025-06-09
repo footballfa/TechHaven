@@ -5,6 +5,7 @@
         public int OrderID { get; set; }
         public int OrderDate { get; set; }
         public int TottalPrice { get; set; }
+        public string ProductName { get; set; }
         public OrderDetail OrderDetail { get; set; }
         public ICollection<Customer> Customer { get; set; }
     }

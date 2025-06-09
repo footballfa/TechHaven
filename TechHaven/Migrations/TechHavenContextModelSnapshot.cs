@@ -304,6 +304,10 @@ namespace TechHaven.Migrations
                     b.Property<int>("OrderDetailID")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("TottalPrice")
                         .HasColumnType("int");
 
@@ -324,6 +328,10 @@ namespace TechHaven.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantaty")
                         .HasColumnType("int");
