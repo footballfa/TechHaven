@@ -330,13 +330,13 @@ namespace TechHaven.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_OrderID",
                 table: "Customer",
-                column: "OrderID");
+                column: "OrderID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_EmployeeID",
                 table: "Order",
-                column: "EmployeeID",
-                unique: true);
+                column: "EmployeeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_OrderDetailID",

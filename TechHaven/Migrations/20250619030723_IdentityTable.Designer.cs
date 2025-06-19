@@ -12,7 +12,7 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250617222631_IdentityTable")]
+    [Migration("20250619030723_IdentityTable")]
     partial class IdentityTable
     {
         /// <inheritdoc />
@@ -259,7 +259,8 @@ namespace TechHaven.Migrations
 
                     b.HasKey("CustomerID");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("OrderID")
+                        .IsUnique();
 
                     b.ToTable("Customer");
                 });
@@ -317,8 +318,7 @@ namespace TechHaven.Migrations
 
                     b.HasKey("OrderID");
 
-                    b.HasIndex("EmployeeID")
-                        .IsUnique();
+                    b.HasIndex("EmployeeID");
 
                     b.HasIndex("OrderDetailID");
 
@@ -475,8 +475,8 @@ namespace TechHaven.Migrations
             modelBuilder.Entity("TechHaven.Models.Customer", b =>
                 {
                     b.HasOne("TechHaven.Models.Order", "Order")
-                        .WithMany("Customer")
-                        .HasForeignKey("OrderID")
+                        .WithOne("Customer")
+                        .HasForeignKey("TechHaven.Models.Customer", "OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -485,9 +485,9 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Order", b =>
                 {
-                    b.HasOne("TechHaven.Models.Employee", null)
-                        .WithOne("order")
-                        .HasForeignKey("TechHaven.Models.Order", "EmployeeID")
+                    b.HasOne("TechHaven.Models.Employee", "Employee")
+                        .WithMany("Orders")
+                        .HasForeignKey("EmployeeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -496,6 +496,8 @@ namespace TechHaven.Migrations
                         .HasForeignKey("OrderDetailID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Employee");
 
                     b.Navigation("OrderDetail");
                 });
@@ -520,13 +522,13 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Employee", b =>
                 {
-                    b.Navigation("order")
-                        .IsRequired();
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("TechHaven.Models.Order", b =>
                 {
-                    b.Navigation("Customer");
+                    b.Navigation("Customer")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TechHaven.Models.OrderDetail", b =>

@@ -8,7 +8,7 @@ namespace TechHaven.Areas.Identity.Data;
 public class TechHavenContext : IdentityDbContext<IdentityUser>
 {
     public TechHavenContext(DbContextOptions<TechHavenContext> options)
-        : base(options)
+: base(options)
     {
     }
 
