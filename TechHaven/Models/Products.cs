@@ -3,6 +3,7 @@
     public class Products
     {
         public int ProductsID { get; set; }
+        public int SupplierID { get; set; }
         public string ProductName { get; set; }
         public  int Quantaty { get; set; }
         public int Price { get; set; }

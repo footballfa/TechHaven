@@ -22,7 +22,8 @@ namespace TechHaven.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customer.ToListAsync());
+            var techHavenContext = _context.Customer.Include(c => c.Order);
+            return View(await techHavenContext.ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -34,6 +35,7 @@ namespace TechHaven.Controllers
             }
 
             var customer = await _context.Customer
+                .Include(c => c.Order)
                 .FirstOrDefaultAsync(m => m.CustomerID == id);
             if (customer == null)
             {
@@ -46,6 +48,7 @@ namespace TechHaven.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID");
             return View();
         }
 
@@ -54,14 +57,15 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerID,FirstName,LastName,Email,Phone,Address")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CustomerID,OrderID,FirstName,LastName,Email,Phone,Address")] Customer customer)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", customer.OrderID);
             return View(customer);
         }
 
@@ -78,6 +82,7 @@ namespace TechHaven.Controllers
             {
                 return NotFound();
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", customer.OrderID);
             return View(customer);
         }
 
@@ -86,14 +91,14 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FirstName,LastName,Email,Phone,Address")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,OrderID,FirstName,LastName,Email,Phone,Address")] Customer customer)
         {
             if (id != customer.CustomerID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -113,6 +118,7 @@ namespace TechHaven.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "OrderID", customer.OrderID);
             return View(customer);
         }
 
@@ -125,6 +131,7 @@ namespace TechHaven.Controllers
             }
 
             var customer = await _context.Customer
+                .Include(c => c.Order)
                 .FirstOrDefaultAsync(m => m.CustomerID == id);
             if (customer == null)
             {

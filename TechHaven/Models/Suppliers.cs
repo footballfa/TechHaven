@@ -5,6 +5,7 @@
         public int SuppliersID { get; set; }
         public string SupplierName { get; set; }
         public int SupplierContact { get; set; }
+        public string SupplierProduct { get; set; }
         public int DeliveryTime { get; set; }
 
     }

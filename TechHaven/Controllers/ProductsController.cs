@@ -54,9 +54,9 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductsID,ProductName,Quantaty,Price,Stock")] Products products)
+        public async Task<IActionResult> Create([Bind("ProductsID,SupplierID,ProductName,Quantaty,Price,Stock")] Products products)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _context.Add(products);
                 await _context.SaveChangesAsync();
@@ -86,14 +86,14 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductsID,ProductName,Quantaty,Price,Stock")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductsID,SupplierID,ProductName,Quantaty,Price,Stock")] Products products)
         {
             if (id != products.ProductsID)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
