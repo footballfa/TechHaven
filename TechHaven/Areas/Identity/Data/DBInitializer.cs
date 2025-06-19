@@ -24,7 +24,6 @@ namespace TechHaven.Areas.Identity.Data
             var customers = new Customer[]
 
             {
-
                 new Customer { FirstName = "Alex", LastName = "Benjaman", Email = "Alex31@gmail.com", Phone = 0220398787, Address = "72 Victoria Street West, Auckland CBD, Auckland 1010, New Zealand" },
                 new Customer { FirstName = "Bob", LastName = "The Builder", Email = "Bob123@gmail.com", Phone = 0227291560, Address = "Parnell, Auckland 1010, New Zealand" },
                 new Customer {FirstName = "Michael", LastName = "Joradn", Email = "Michael531@gmail.com", Phone = 0227206418,  Address = "22 Princes Street, Auckland CBD, Auckland 1010, New Zealand"},
