@@ -299,7 +299,7 @@ namespace TechHaven.Migrations
                     b.Property<int>("OrderDate")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderDetailID")
+                    b.Property<int>("OrderDetailId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -313,7 +313,7 @@ namespace TechHaven.Migrations
 
                     b.HasIndex("EmployeeID");
 
-                    b.HasIndex("OrderDetailID");
+                    b.HasIndex("OrderDetailId");
 
                     b.ToTable("Order");
                 });
@@ -483,7 +483,7 @@ namespace TechHaven.Migrations
 
                     b.HasOne("TechHaven.Models.OrderDetail", "OrderDetail")
                         .WithMany("Order")
-                        .HasForeignKey("OrderDetailID")
+                        .HasForeignKey("OrderDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

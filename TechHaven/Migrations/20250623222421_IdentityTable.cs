@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechHaven.Migrations
 {
     /// <inheritdoc />
-    public partial class identitytable : Migration
+    public partial class IdentityTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -193,10 +193,10 @@ namespace TechHaven.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeID = table.Column<int>(type: "int", nullable: false),
+                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<int>(type: "int", nullable: false),
                     TottalPrice = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderDetailID = table.Column<int>(type: "int", nullable: false)
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,8 +208,8 @@ namespace TechHaven.Migrations
                         principalColumn: "EmployeeID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_OrderDetail_OrderDetailID",
-                        column: x => x.OrderDetailID,
+                        name: "FK_Order_OrderDetail_OrderDetailId",
+                        column: x => x.OrderDetailId,
                         principalTable: "OrderDetail",
                         principalColumn: "OrderDetailID",
                         onDelete: ReferentialAction.Cascade);
@@ -337,9 +337,9 @@ namespace TechHaven.Migrations
                 column: "EmployeeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_OrderDetailID",
+                name: "IX_Order_OrderDetailId",
                 table: "Order",
-                column: "OrderDetailID");
+                column: "OrderDetailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_OrderDetailsOrderDetailID",
