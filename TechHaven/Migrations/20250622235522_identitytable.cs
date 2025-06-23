@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechHaven.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityTable : Migration
+    public partial class identitytable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -71,8 +71,6 @@ namespace TechHaven.Migrations
                 {
                     OrderDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderID = table.Column<int>(type: "int", nullable: false),
-                    ProductID = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false)
@@ -194,7 +192,6 @@ namespace TechHaven.Migrations
                 {
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomersID = table.Column<int>(type: "int", nullable: false),
                     EmployeeID = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<int>(type: "int", nullable: false),
                     TottalPrice = table.Column<int>(type: "int", nullable: false),
@@ -224,19 +221,19 @@ namespace TechHaven.Migrations
                 {
                     ProductsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
+                    OrderDetail = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Stock = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderDetailID = table.Column<int>(type: "int", nullable: false)
+                    OrderDetailsOrderDetailID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductsID);
                     table.ForeignKey(
-                        name: "FK_Products_OrderDetail_OrderDetailID",
-                        column: x => x.OrderDetailID,
+                        name: "FK_Products_OrderDetail_OrderDetailsOrderDetailID",
+                        column: x => x.OrderDetailsOrderDetailID,
                         principalTable: "OrderDetail",
                         principalColumn: "OrderDetailID",
                         onDelete: ReferentialAction.Cascade);
@@ -272,11 +269,12 @@ namespace TechHaven.Migrations
                 {
                     SuppliersID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProdcutsId = table.Column<int>(type: "int", nullable: false),
                     SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SupplierContact = table.Column<int>(type: "int", nullable: false),
                     SupplierProduct = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryTime = table.Column<int>(type: "int", nullable: false),
-                    ProductsID = table.Column<int>(type: "int", nullable: true)
+                    ProductsID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -285,7 +283,8 @@ namespace TechHaven.Migrations
                         name: "FK_Suppliers_Products_ProductsID",
                         column: x => x.ProductsID,
                         principalTable: "Products",
-                        principalColumn: "ProductsID");
+                        principalColumn: "ProductsID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -330,8 +329,7 @@ namespace TechHaven.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_OrderID",
                 table: "Customer",
-                column: "OrderID",
-                unique: true);
+                column: "OrderID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_EmployeeID",
@@ -344,9 +342,9 @@ namespace TechHaven.Migrations
                 column: "OrderDetailID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_OrderDetailID",
+                name: "IX_Products_OrderDetailsOrderDetailID",
                 table: "Products",
-                column: "OrderDetailID");
+                column: "OrderDetailsOrderDetailID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suppliers_ProductsID",

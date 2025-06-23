@@ -12,8 +12,8 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250619030723_IdentityTable")]
-    partial class IdentityTable
+    [Migration("20250622235522_identitytable")]
+    partial class identitytable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -259,8 +259,7 @@ namespace TechHaven.Migrations
 
                     b.HasKey("CustomerID");
 
-                    b.HasIndex("OrderID")
-                        .IsUnique();
+                    b.HasIndex("OrderID");
 
                     b.ToTable("Customer");
                 });
@@ -297,9 +296,6 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
-                    b.Property<int>("CustomersID")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
@@ -333,13 +329,7 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
 
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -362,7 +352,10 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductsID"));
 
-                    b.Property<int>("OrderDetailID")
+                    b.Property<int>("OrderDetail")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderDetailsOrderDetailID")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -379,12 +372,9 @@ namespace TechHaven.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierID")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductsID");
 
-                    b.HasIndex("OrderDetailID");
+                    b.HasIndex("OrderDetailsOrderDetailID");
 
                     b.ToTable("Products");
                 });
@@ -400,7 +390,10 @@ namespace TechHaven.Migrations
                     b.Property<int>("DeliveryTime")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductsID")
+                    b.Property<int>("ProdcutsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsID")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierContact")
@@ -475,8 +468,8 @@ namespace TechHaven.Migrations
             modelBuilder.Entity("TechHaven.Models.Customer", b =>
                 {
                     b.HasOne("TechHaven.Models.Order", "Order")
-                        .WithOne("Customer")
-                        .HasForeignKey("TechHaven.Models.Customer", "OrderID")
+                        .WithMany("Customer")
+                        .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -504,20 +497,24 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Products", b =>
                 {
-                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetail")
+                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetails")
                         .WithMany("Products")
-                        .HasForeignKey("OrderDetailID")
+                        .HasForeignKey("OrderDetailsOrderDetailID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderDetail");
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("TechHaven.Models.Suppliers", b =>
                 {
-                    b.HasOne("TechHaven.Models.Products", null)
+                    b.HasOne("TechHaven.Models.Products", "Products")
                         .WithMany("Supplier")
-                        .HasForeignKey("ProductsID");
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("TechHaven.Models.Employee", b =>
@@ -527,8 +524,7 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Order", b =>
                 {
-                    b.Navigation("Customer")
-                        .IsRequired();
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("TechHaven.Models.OrderDetail", b =>
