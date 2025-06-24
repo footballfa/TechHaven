@@ -14,33 +14,8 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-CreateDbIfNotExists(app);
 
-static void CreateDbIfNotExists(IHost host)
 
-{
-    using (var scope = host.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<TechHavenContext>();
-            DBInitializer.Initialize(context);
-        }
-
-        catch (Exception ex)
-
-        {
-
-            var logger = services.GetRequiredService<ILogger<Program>>();
-
-            logger.LogError(ex, "An error occured creating the DB");
-
-        }
-
-    }
-
-}
 
 
 
@@ -81,5 +56,6 @@ app.MapControllerRoute(
 
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+Initializer.Add(app);
 
 app.Run();
