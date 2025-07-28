@@ -221,19 +221,18 @@ namespace TechHaven.Migrations
                 {
                     ProductsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDetail = table.Column<int>(type: "int", nullable: false),
+                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderDetailsOrderDetailID = table.Column<int>(type: "int", nullable: false)
+                    Stock = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductsID);
                     table.ForeignKey(
-                        name: "FK_Products_OrderDetail_OrderDetailsOrderDetailID",
-                        column: x => x.OrderDetailsOrderDetailID,
+                        name: "FK_Products_OrderDetail_OrderDetailId",
+                        column: x => x.OrderDetailId,
                         principalTable: "OrderDetail",
                         principalColumn: "OrderDetailID",
                         onDelete: ReferentialAction.Cascade);
@@ -342,9 +341,9 @@ namespace TechHaven.Migrations
                 column: "OrderDetailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_OrderDetailsOrderDetailID",
+                name: "IX_Products_OrderDetailId",
                 table: "Products",
-                column: "OrderDetailsOrderDetailID");
+                column: "OrderDetailId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Suppliers_ProductsID",

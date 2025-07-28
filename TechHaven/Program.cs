@@ -56,6 +56,11 @@ app.MapControllerRoute(
 
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-Initializer.Add(app);
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<TechHavenContext>();
+    DBInitializer.Initialize(context); // Removed the second argument
+}
 
 app.Run();

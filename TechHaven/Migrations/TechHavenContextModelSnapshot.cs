@@ -349,10 +349,7 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductsID"));
 
-                    b.Property<int>("OrderDetail")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderDetailsOrderDetailID")
+                    b.Property<int>("OrderDetailId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -371,7 +368,7 @@ namespace TechHaven.Migrations
 
                     b.HasKey("ProductsID");
 
-                    b.HasIndex("OrderDetailsOrderDetailID");
+                    b.HasIndex("OrderDetailId");
 
                     b.ToTable("Products");
                 });
@@ -494,19 +491,19 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Products", b =>
                 {
-                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetails")
+                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetail")
                         .WithMany("Products")
-                        .HasForeignKey("OrderDetailsOrderDetailID")
+                        .HasForeignKey("OrderDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrderDetails");
+                    b.Navigation("OrderDetail");
                 });
 
             modelBuilder.Entity("TechHaven.Models.Suppliers", b =>
                 {
                     b.HasOne("TechHaven.Models.Products", "Products")
-                        .WithMany("Supplier")
+                        .WithMany("Suppliers")
                         .HasForeignKey("ProductsID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -533,7 +530,7 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Products", b =>
                 {
-                    b.Navigation("Supplier");
+                    b.Navigation("Suppliers");
                 });
 #pragma warning restore 612, 618
         }
