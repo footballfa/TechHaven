@@ -6,6 +6,7 @@ namespace TechHaven.Areas.Identity.Data
     {
         internal static void Initialize(TechHavenContext context)
         {
+
             context.Database.EnsureCreated();
 
             if (context.Customer.Any())
@@ -132,7 +133,7 @@ namespace TechHaven.Areas.Identity.Data
                  new Employee {EmployeeName = "Alexander the first", EmployeeRole = "Receptionist", LoginCredentials = 3467 },
                  new Employee {EmployeeName = "Max", EmployeeRole = "Receptionist", LoginCredentials = 8753 },
                  new Employee {EmployeeName = "Jones", EmployeeRole = "Receptionist", LoginCredentials = 2457},
-                 new Employee { EmployeeName = "Suria", EmployeeRole = "Receptionist", LoginCredentials = 1467 },
+                 new Employee {EmployeeName = "Suria", EmployeeRole = "Receptionist", LoginCredentials = 1467 },
                  new Employee {EmployeeName = "Ronaldo", EmployeeRole = "Receptionist", LoginCredentials = 4678 },
               };
             foreach (Employee e in Employees)

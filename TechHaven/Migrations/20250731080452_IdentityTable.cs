@@ -51,13 +51,31 @@ namespace TechHaven.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employee",
                 columns: table => new
                 {
                     EmployeeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeeRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeName = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    EmployeeRole = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     LoginCredentials = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -66,18 +84,20 @@ namespace TechHaven.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderDetail",
+                name: "Suppliers",
                 columns: table => new
                 {
-                    OrderDetailID = table.Column<int>(type: "int", nullable: false)
+                    SuppliersID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Quantaty = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    ProdcutsId = table.Column<int>(type: "int", nullable: false),
+                    SupplierName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    SupplierContact = table.Column<int>(type: "int", nullable: false),
+                    SupplierProduct = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DeliveryTime = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetail", x => x.OrderDetailID);
+                    table.PrimaryKey("PK_Suppliers", x => x.SuppliersID);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,22 +216,23 @@ namespace TechHaven.Migrations
                     OrderDetailId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<int>(type: "int", nullable: false),
                     TottalPrice = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Order", x => x.OrderID);
                     table.ForeignKey(
+                        name: "FK_Order_Customer_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customer",
+                        principalColumn: "CustomerID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Order_Employee_EmployeeID",
                         column: x => x.EmployeeID,
                         principalTable: "Employee",
                         principalColumn: "EmployeeID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Order_OrderDetail_OrderDetailId",
-                        column: x => x.OrderDetailId,
-                        principalTable: "OrderDetail",
-                        principalColumn: "OrderDetailID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -221,65 +242,46 @@ namespace TechHaven.Migrations
                 {
                     ProductsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Stock = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SuppliersID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductsID);
                     table.ForeignKey(
-                        name: "FK_Products_OrderDetail_OrderDetailId",
-                        column: x => x.OrderDetailId,
-                        principalTable: "OrderDetail",
-                        principalColumn: "OrderDetailID",
+                        name: "FK_Products_Suppliers_SuppliersID",
+                        column: x => x.SuppliersID,
+                        principalTable: "Suppliers",
+                        principalColumn: "SuppliersID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customer",
+                name: "OrderDetail",
                 columns: table => new
                 {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    OrderDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
+                    Quantaty = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
                     OrderID = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.CustomerID);
-                    table.ForeignKey(
-                        name: "FK_Customer_Order_OrderID",
-                        column: x => x.OrderID,
-                        principalTable: "Order",
-                        principalColumn: "OrderID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Suppliers",
-                columns: table => new
-                {
-                    SuppliersID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProdcutsId = table.Column<int>(type: "int", nullable: false),
-                    SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SupplierContact = table.Column<int>(type: "int", nullable: false),
-                    SupplierProduct = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DeliveryTime = table.Column<int>(type: "int", nullable: false),
                     ProductsID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Suppliers", x => x.SuppliersID);
+                    table.PrimaryKey("PK_OrderDetail", x => x.OrderDetailID);
                     table.ForeignKey(
-                        name: "FK_Suppliers_Products_ProductsID",
+                        name: "FK_OrderDetail_Order_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Order",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderDetail_Products_ProductsID",
                         column: x => x.ProductsID,
                         principalTable: "Products",
                         principalColumn: "ProductsID",
@@ -326,9 +328,9 @@ namespace TechHaven.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customer_OrderID",
-                table: "Customer",
-                column: "OrderID");
+                name: "IX_Order_CustomerID",
+                table: "Order",
+                column: "CustomerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_EmployeeID",
@@ -336,19 +338,19 @@ namespace TechHaven.Migrations
                 column: "EmployeeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_OrderDetailId",
-                table: "Order",
-                column: "OrderDetailId");
+                name: "IX_OrderDetail_OrderID",
+                table: "OrderDetail",
+                column: "OrderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_OrderDetailId",
-                table: "Products",
-                column: "OrderDetailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Suppliers_ProductsID",
-                table: "Suppliers",
+                name: "IX_OrderDetail_ProductsID",
+                table: "OrderDetail",
                 column: "ProductsID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_SuppliersID",
+                table: "Products",
+                column: "SuppliersID");
         }
 
         /// <inheritdoc />
@@ -370,10 +372,7 @@ namespace TechHaven.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Suppliers");
+                name: "OrderDetail");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -388,10 +387,13 @@ namespace TechHaven.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Customer");
+
+            migrationBuilder.DropTable(
                 name: "Employee");
 
             migrationBuilder.DropTable(
-                name: "OrderDetail");
+                name: "Suppliers");
         }
     }
 }

@@ -234,7 +234,8 @@ namespace TechHaven.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -242,11 +243,13 @@ namespace TechHaven.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<int>("OrderID")
                         .HasColumnType("int");
@@ -255,8 +258,6 @@ namespace TechHaven.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CustomerID");
-
-                    b.HasIndex("OrderID");
 
                     b.ToTable("Customer");
                 });
@@ -271,11 +272,13 @@ namespace TechHaven.Migrations
 
                     b.Property<string>("EmployeeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("EmployeeRole")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<int>("LoginCredentials")
                         .HasColumnType("int");
@@ -293,6 +296,9 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderID"));
 
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
@@ -304,16 +310,17 @@ namespace TechHaven.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("TottalPrice")
                         .HasColumnType("int");
 
                     b.HasKey("OrderID");
 
-                    b.HasIndex("EmployeeID");
+                    b.HasIndex("CustomerID");
 
-                    b.HasIndex("OrderDetailId");
+                    b.HasIndex("EmployeeID");
 
                     b.ToTable("Order");
                 });
@@ -326,17 +333,28 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderDetailID"));
 
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("ProductsID")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantaty")
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductsID");
 
                     b.ToTable("OrderDetail");
                 });
@@ -349,26 +367,28 @@ namespace TechHaven.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductsID"));
 
-                    b.Property<int>("OrderDetailId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<int>("Quantaty")
                         .HasColumnType("int");
 
                     b.Property<string>("Stock")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("SuppliersID")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductsID");
 
-                    b.HasIndex("OrderDetailId");
+                    b.HasIndex("SuppliersID");
 
                     b.ToTable("Products");
                 });
@@ -387,23 +407,20 @@ namespace TechHaven.Migrations
                     b.Property<int>("ProdcutsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductsID")
-                        .HasColumnType("int");
-
                     b.Property<int>("SupplierContact")
                         .HasColumnType("int");
 
                     b.Property<string>("SupplierName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SupplierProduct")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("SuppliersID");
-
-                    b.HasIndex("ProductsID");
 
                     b.ToTable("Suppliers");
                 });
@@ -459,70 +476,39 @@ namespace TechHaven.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TechHaven.Models.Customer", b =>
+            modelBuilder.Entity("TechHaven.Models.Order", b =>
                 {
-                    b.HasOne("TechHaven.Models.Order", "Order")
-                        .WithMany("Customer")
-                        .HasForeignKey("OrderID")
+                    b.HasOne("TechHaven.Models.Customer", "Customer")
+                        .WithMany("Order")
+                        .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("TechHaven.Models.Order", b =>
-                {
                     b.HasOne("TechHaven.Models.Employee", "Employee")
-                        .WithMany("Orders")
+                        .WithMany("Order")
                         .HasForeignKey("EmployeeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetail")
-                        .WithMany("Order")
-                        .HasForeignKey("OrderDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Customer");
 
                     b.Navigation("Employee");
-
-                    b.Navigation("OrderDetail");
-                });
-
-            modelBuilder.Entity("TechHaven.Models.Products", b =>
-                {
-                    b.HasOne("TechHaven.Models.OrderDetail", "OrderDetail")
-                        .WithMany("Products")
-                        .HasForeignKey("OrderDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrderDetail");
-                });
-
-            modelBuilder.Entity("TechHaven.Models.Suppliers", b =>
-                {
-                    b.HasOne("TechHaven.Models.Products", "Products")
-                        .WithMany("Suppliers")
-                        .HasForeignKey("ProductsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("TechHaven.Models.Employee", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("TechHaven.Models.Order", b =>
-                {
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("TechHaven.Models.OrderDetail", b =>
                 {
+                    b.HasOne("TechHaven.Models.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TechHaven.Models.Products", "Products")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("ProductsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Order");
 
                     b.Navigation("Products");
@@ -530,7 +516,38 @@ namespace TechHaven.Migrations
 
             modelBuilder.Entity("TechHaven.Models.Products", b =>
                 {
+                    b.HasOne("TechHaven.Models.Suppliers", "Suppliers")
+                        .WithMany("Product")
+                        .HasForeignKey("SuppliersID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Suppliers");
+                });
+
+            modelBuilder.Entity("TechHaven.Models.Customer", b =>
+                {
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("TechHaven.Models.Employee", b =>
+                {
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("TechHaven.Models.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("TechHaven.Models.Products", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("TechHaven.Models.Suppliers", b =>
+                {
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }
