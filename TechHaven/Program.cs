@@ -7,7 +7,10 @@ var connectionString = builder.Configuration.GetConnectionString("TechHavenConte
 
 builder.Services.AddDbContext<TechHavenContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<TechHavenContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<TechHavenContext>();
+
 
 
 builder.Services.AddControllersWithViews();
@@ -42,7 +45,7 @@ app.UseRouting();
 
 
 
-app.UseAuthorization();
+app.UseAuthentication();
 
 
 
@@ -59,7 +62,9 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     var context = services.GetRequiredService<TechHavenContext>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     DBInitializer.Initialize(context); // Removed the second argument
 }
 

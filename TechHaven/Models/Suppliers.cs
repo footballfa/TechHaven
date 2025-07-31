@@ -9,7 +9,7 @@
         public string SupplierProduct { get; set; }
         public int DeliveryTime { get; set; }
 
-        public Products Products { get; set; }
+        public ICollection<Products> Product { get; set; }
 
     }
 

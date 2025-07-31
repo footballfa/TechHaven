@@ -10,10 +10,9 @@
         public string ProductName { get; set; }
 
 
-        public ICollection<Customer>  Customer { get; set; }
+        public Customer Customer { get; set; }
         public Employee Employee { get; set; }
-        public OrderDetail OrderDetail { get; set; }
-
+        public ICollection<OrderDetail> OrderDetails { get; set; }
 
     }
 }

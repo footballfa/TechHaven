@@ -8,7 +8,7 @@
         public string EmployeeRole { get; set; }
         public int LoginCredentials { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Order { get; set; }
         
 
 

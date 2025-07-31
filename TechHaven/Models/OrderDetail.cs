@@ -7,7 +7,7 @@
         public int Quantaty { get; set; }
         public int Price { get; set; }
 
-        public ICollection<Order> Order { get; set; }
-        public ICollection<Products> Products { get; set; }
+        public Order Order { get; set; }
+        public Products Products { get; set; }
     }
 }

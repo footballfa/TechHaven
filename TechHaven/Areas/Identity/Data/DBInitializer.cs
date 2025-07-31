@@ -2,13 +2,13 @@
 
 namespace TechHaven.Areas.Identity.Data
 {
-    public class DBInitializer
+    internal class DBInitializer
     {
         internal static void Initialize(TechHavenContext context)
         {
             context.Database.EnsureCreated();
 
-            if (!context.Customer.Any())
+            if (context.Customer.Any())
             {
                 return;   // DB has been seeded  
             }
