@@ -5,6 +5,7 @@ namespace TechHaven.Models
     public class Products
     {
         public int ProductsID { get; set; }
+        public int SuppliersId { get; set; }
 
 
         [Required(ErrorMessage = "Product Name is required.")]

@@ -251,9 +251,6 @@ namespace TechHaven.Migrations
                         .HasMaxLength(12)
                         .HasColumnType("nvarchar(12)");
 
-                    b.Property<int>("OrderID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Phone")
                         .HasColumnType("int");
 
@@ -303,9 +300,6 @@ namespace TechHaven.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("OrderDate")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderDetailId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
@@ -383,12 +377,12 @@ namespace TechHaven.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("SuppliersID")
+                    b.Property<int>("SuppliersId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductsID");
 
-                    b.HasIndex("SuppliersID");
+                    b.HasIndex("SuppliersId");
 
                     b.ToTable("Products");
                 });
@@ -402,9 +396,6 @@ namespace TechHaven.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SuppliersID"));
 
                     b.Property<int>("DeliveryTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProdcutsId")
                         .HasColumnType("int");
 
                     b.Property<int>("SupplierContact")
@@ -518,7 +509,7 @@ namespace TechHaven.Migrations
                 {
                     b.HasOne("TechHaven.Models.Suppliers", "Suppliers")
                         .WithMany("Product")
-                        .HasForeignKey("SuppliersID")
+                        .HasForeignKey("SuppliersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

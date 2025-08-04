@@ -10,7 +10,7 @@ namespace TechHaven.Models
         public int EmployeeID { get; set; }
 
 
-        public int OrderDetailId {get; set;}
+       public int CustomerID { get; set; }
 
 
         [Required(ErrorMessage = "Order Date is required.")]

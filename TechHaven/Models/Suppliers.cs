@@ -7,7 +7,7 @@ namespace TechHaven.Models
         public int SuppliersID { get; set; }
 
 
-        public int ProdcutsId { get; set; }
+        
 
         [Required(ErrorMessage = "Supplier Name is required.")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Supplier Name must be between 1 and 100 characters.")]

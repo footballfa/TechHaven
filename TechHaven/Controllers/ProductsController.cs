@@ -22,7 +22,8 @@ namespace TechHaven.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            var techHavenContext = _context.Products.Include(p => p.Suppliers);
+            return View(await techHavenContext.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -34,6 +35,7 @@ namespace TechHaven.Controllers
             }
 
             var products = await _context.Products
+                .Include(p => p.Suppliers)
                 .FirstOrDefaultAsync(m => m.ProductsID == id);
             if (products == null)
             {
@@ -46,6 +48,7 @@ namespace TechHaven.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            ViewData["SuppliersId"] = new SelectList(_context.Suppliers, "SuppliersID", "SupplierName");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductsID,ProductName,Quantaty,Price,Stock")] Products products)
+        public async Task<IActionResult> Create([Bind("ProductsID,SuppliersId,ProductName,Quantaty,Price,Stock")] Products products)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace TechHaven.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SuppliersId"] = new SelectList(_context.Suppliers, "SuppliersID", "SupplierName", products.SuppliersId);
             return View(products);
         }
 
@@ -78,6 +82,7 @@ namespace TechHaven.Controllers
             {
                 return NotFound();
             }
+            ViewData["SuppliersId"] = new SelectList(_context.Suppliers, "SuppliersID", "SupplierName", products.SuppliersId);
             return View(products);
         }
 
@@ -86,7 +91,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductsID,ProductName,Quantaty,Price,Stock")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductsID,SuppliersId,ProductName,Quantaty,Price,Stock")] Products products)
         {
             if (id != products.ProductsID)
             {
@@ -113,6 +118,7 @@ namespace TechHaven.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SuppliersId"] = new SelectList(_context.Suppliers, "SuppliersID", "SupplierName", products.SuppliersId);
             return View(products);
         }
 
@@ -125,6 +131,7 @@ namespace TechHaven.Controllers
             }
 
             var products = await _context.Products
+                .Include(p => p.Suppliers)
                 .FirstOrDefaultAsync(m => m.ProductsID == id);
             if (products == null)
             {

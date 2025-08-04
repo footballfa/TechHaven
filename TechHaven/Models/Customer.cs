@@ -7,8 +7,6 @@ namespace TechHaven.Models
         public int CustomerID { get; set; }
 
 
-        public int OrderID { get; set; }
-
 
         [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
         [Required]

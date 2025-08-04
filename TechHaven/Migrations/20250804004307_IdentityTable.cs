@@ -56,7 +56,6 @@ namespace TechHaven.Migrations
                 {
                     CustomerID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderID = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -89,7 +88,6 @@ namespace TechHaven.Migrations
                 {
                     SuppliersID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProdcutsId = table.Column<int>(type: "int", nullable: false),
                     SupplierName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     SupplierContact = table.Column<int>(type: "int", nullable: false),
                     SupplierProduct = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -213,11 +211,10 @@ namespace TechHaven.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeID = table.Column<int>(type: "int", nullable: false),
-                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
+                    CustomerID = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<int>(type: "int", nullable: false),
                     TottalPrice = table.Column<int>(type: "int", nullable: false),
-                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                    ProductName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -242,18 +239,18 @@ namespace TechHaven.Migrations
                 {
                     ProductsID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    SuppliersId = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Stock = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SuppliersID = table.Column<int>(type: "int", nullable: false)
+                    Stock = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductsID);
                     table.ForeignKey(
-                        name: "FK_Products_Suppliers_SuppliersID",
-                        column: x => x.SuppliersID,
+                        name: "FK_Products_Suppliers_SuppliersId",
+                        column: x => x.SuppliersId,
                         principalTable: "Suppliers",
                         principalColumn: "SuppliersID",
                         onDelete: ReferentialAction.Cascade);
@@ -348,9 +345,9 @@ namespace TechHaven.Migrations
                 column: "ProductsID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SuppliersID",
+                name: "IX_Products_SuppliersId",
                 table: "Products",
-                column: "SuppliersID");
+                column: "SuppliersId");
         }
 
         /// <inheritdoc />

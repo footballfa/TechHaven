@@ -22,7 +22,7 @@ namespace TechHaven.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var techHavenContext = _context.Order.Include(o => o.Employee);
+            var techHavenContext = _context.Order.Include(o => o.Customer).Include(o => o.Employee);
             return View(await techHavenContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace TechHaven.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Customer)
                 .Include(o => o.Employee)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)
@@ -48,6 +49,7 @@ namespace TechHaven.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address");
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName");
             return View();
         }
@@ -57,7 +59,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderID,EmployeeID,OrderDetailId,OrderDate,TottalPrice,ProductName")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderID,EmployeeID,CustomerID,OrderDate,TottalPrice,ProductName")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +67,7 @@ namespace TechHaven.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }
@@ -82,6 +85,7 @@ namespace TechHaven.Controllers
             {
                 return NotFound();
             }
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }
@@ -91,7 +95,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderID,EmployeeID,OrderDetailId,OrderDate,TottalPrice,ProductName")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderID,EmployeeID,CustomerID,OrderDate,TottalPrice,ProductName")] Order order)
         {
             if (id != order.OrderID)
             {
@@ -118,6 +122,7 @@ namespace TechHaven.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }
@@ -131,6 +136,7 @@ namespace TechHaven.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Customer)
                 .Include(o => o.Employee)
                 .FirstOrDefaultAsync(m => m.OrderID == id);
             if (order == null)

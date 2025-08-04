@@ -15,16 +15,16 @@ namespace TechHaven.Areas.Identity.Data
             }
             var Product = new Products[]
 {
-                new Products { ProductName = "iPhone 15 Pro Max", Quantaty = 56, Price = 2100 , Stock = "In Stock" },
-                new Products { ProductName = "Samsung Galaxy S24 Ultra", Quantaty = 35, Price = 2200 , Stock = "In Stock" },
-                new Products { ProductName = "Apple MacBook Pro M3 Max", Quantaty = 63, Price = 6000 , Stock = "In Stock" },
-                new Products { ProductName = "Asus ROG Zephyrus G14", Quantaty = 19, Price = 4700 , Stock = "In Stock" },
-                new Products { ProductName = "Sony PlayStation 5 Pro (PS5)", Quantaty = 51, Price = 1400 , Stock = "In Stock" },
-                new Products { ProductName = "Xbox Series X", Quantaty = 36, Price = 950 , Stock = "In Stock" },
-                new Products { ProductName = "Meta Quest 3", Quantaty = 36, Price = 1100 , Stock = "In Stock" },
-                new Products { ProductName = "Samsung Odyssey G9 Neo", Quantaty = 43, Price = 3500 , Stock = "In Stock" },
-                new Products { ProductName = "Bose QuietComfort Ultra Headphones", Quantaty = 3, Price = 400 , Stock = "In Stock" },
-                new Products { ProductName = "Logitech MX Mechanical Keyboard", Quantaty = 10, Price = 250, Stock = "In Stock" },
+                new Products {  SuppliersId=1,ProductName = "iPhone 15 Pro Max", Quantaty = 56, Price = 2100 , Stock = "In Stock" },
+                new Products {  SuppliersId=2,ProductName = "Samsung Galaxy S24 Ultra", Quantaty = 35, Price = 2200 , Stock = "In Stock" },
+                new Products {  SuppliersId=3,ProductName = "Apple MacBook Pro M3 Max", Quantaty = 63, Price = 6000 , Stock = "In Stock" },
+                new Products {  SuppliersId=4,ProductName = "Asus ROG Zephyrus G14", Quantaty = 19, Price = 4700 , Stock = "In Stock" },
+                new Products {  SuppliersId=5,ProductName = "Sony PlayStation 5 Pro (PS5)", Quantaty = 51, Price = 1400 , Stock = "In Stock" },
+                new Products {  SuppliersId=6,ProductName = "Xbox Series X", Quantaty = 36, Price = 950 , Stock = "In Stock" },
+                new Products {  SuppliersId=7,ProductName = "Meta Quest 3", Quantaty = 36, Price = 1100 , Stock = "In Stock" },
+                new Products {  SuppliersId=8,ProductName = "Samsung Odyssey G9 Neo", Quantaty = 43, Price = 3500 , Stock = "In Stock" },
+                new Products {  SuppliersId=9,ProductName = "Bose QuietComfort Ultra Headphones", Quantaty = 3, Price = 400 , Stock = "In Stock" },
+                new Products {  SuppliersId=10,ProductName = "Logitech MX Mechanical Keyboard", Quantaty = 10, Price = 250, Stock = "In Stock" },
 };
             foreach (Products p in Product)
             {
@@ -57,16 +57,16 @@ namespace TechHaven.Areas.Identity.Data
 
             var Orders = new Order[]
             {
-                new Order { OrderDate = 09/5/23, TottalPrice = 1300, ProductName = "HP Laptop"},
-                new Order { OrderDate = 02/7/23, TottalPrice = 1250, ProductName = "Iphone 16 pro max"},
-                new Order { OrderDate = 05/3/23, TottalPrice = 700, ProductName = "Acer Chromebook"},
-                new Order { OrderDate = 04/5/24, TottalPrice = 1000, ProductName = "Mac book"},
-                new Order { OrderDate = 08/5/24, TottalPrice = 999, ProductName = "Ipad Pro"},
-                new Order { OrderDate = 26/6/24, TottalPrice = 1370, ProductName = "PC"},
-                new Order { OrderDate = 17/8/24, TottalPrice = 2700, ProductName = "samsong odessy Monitor"},
-                new Order { OrderDate = 18/11/24, TottalPrice = 2000, ProductName = "Samsung Tv"},
-                new Order { OrderDate = 29/12/24, TottalPrice = 1500, ProductName = "Gamming Laptop"},
-                new Order { OrderDate = 30/12/24, TottalPrice= 1200, ProductName = "HP Laptop"},
+                new Order {CustomerID=1, EmployeeID= 1, OrderDate = 09/5/23, TottalPrice = 1300, ProductName = "HP Laptop"},
+                new Order {CustomerID=2, EmployeeID= 2, OrderDate = 02/7/23, TottalPrice = 1250, ProductName = "Iphone 16 pro max"},
+                new Order {CustomerID=3, EmployeeID= 3, OrderDate = 05/3/23, TottalPrice = 700, ProductName = "Acer Chromebook"},
+                new Order {CustomerID=4, EmployeeID= 4, OrderDate = 04/5/24, TottalPrice = 1000, ProductName = "Mac book"},
+                new Order {CustomerID=5, EmployeeID= 5, OrderDate = 08/5/24, TottalPrice = 999, ProductName = "Ipad Pro"},
+                new Order {CustomerID=6, EmployeeID= 6,  OrderDate = 26/6/24, TottalPrice = 1370, ProductName = "PC"},
+                new Order {CustomerID=7, EmployeeID= 7,OrderDate = 17/8/24, TottalPrice = 2700, ProductName = "samsong odessy Monitor"},
+                new Order {CustomerID=8, EmployeeID= 8, OrderDate = 18/11/24, TottalPrice = 2000, ProductName = "Samsung Tv"},
+                new Order {CustomerID=9, EmployeeID= 9, OrderDate = 29/12/24, TottalPrice = 1500, ProductName = "Gamming Laptop"},
+                new Order {CustomerID=10, EmployeeID= 10, OrderDate = 30/12/24, TottalPrice= 1200, ProductName = "HP Laptop"},
             };
 
             foreach (Order o in Orders)
