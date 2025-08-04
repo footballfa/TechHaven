@@ -12,8 +12,8 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250804004307_IdentityTable")]
-    partial class IdentityTable
+    [Migration("20250804230512_identitytable")]
+    partial class identitytable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

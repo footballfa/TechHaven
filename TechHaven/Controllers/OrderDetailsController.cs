@@ -22,7 +22,8 @@ namespace TechHaven.Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
-            return View(await _context.OrderDetail.ToListAsync());
+            var techHavenContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Products);
+            return View(await techHavenContext.ToListAsync());
         }
 
         // GET: OrderDetails/Details/5
@@ -34,6 +35,8 @@ namespace TechHaven.Controllers
             }
 
             var orderDetail = await _context.OrderDetail
+                .Include(o => o.Order)
+                .Include(o => o.Products)
                 .FirstOrDefaultAsync(m => m.OrderDetailID == id);
             if (orderDetail == null)
             {
@@ -46,6 +49,8 @@ namespace TechHaven.Controllers
         // GET: OrderDetails/Create
         public IActionResult Create()
         {
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "ProductName");
+            ViewData["ProductsID"] = new SelectList(_context.Products, "ProductsID", "ProductName");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderDetailID,ProductName,Quantaty,Price")] OrderDetail orderDetail)
+        public async Task<IActionResult> Create([Bind("OrderDetailID,OrderID,ProductsID,ProductName,Quantaty,Price")] OrderDetail orderDetail)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace TechHaven.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "ProductName", orderDetail.OrderID);
+            ViewData["ProductsID"] = new SelectList(_context.Products, "ProductsID", "ProductName", orderDetail.ProductsID);
             return View(orderDetail);
         }
 
@@ -78,6 +85,8 @@ namespace TechHaven.Controllers
             {
                 return NotFound();
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "ProductName", orderDetail.OrderID);
+            ViewData["ProductsID"] = new SelectList(_context.Products, "ProductsID", "ProductName", orderDetail.ProductsID);
             return View(orderDetail);
         }
 
@@ -86,7 +95,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderDetailID,ProductName,Quantaty,Price")] OrderDetail orderDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderDetailID,OrderID,ProductsID,ProductName,Quantaty,Price")] OrderDetail orderDetail)
         {
             if (id != orderDetail.OrderDetailID)
             {
@@ -113,6 +122,8 @@ namespace TechHaven.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["OrderID"] = new SelectList(_context.Order, "OrderID", "ProductName", orderDetail.OrderID);
+            ViewData["ProductsID"] = new SelectList(_context.Products, "ProductsID", "ProductName", orderDetail.ProductsID);
             return View(orderDetail);
         }
 
@@ -125,6 +136,8 @@ namespace TechHaven.Controllers
             }
 
             var orderDetail = await _context.OrderDetail
+                .Include(o => o.Order)
+                .Include(o => o.Products)
                 .FirstOrDefaultAsync(m => m.OrderDetailID == id);
             if (orderDetail == null)
             {

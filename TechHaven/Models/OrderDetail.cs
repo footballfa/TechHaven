@@ -5,6 +5,8 @@ namespace TechHaven.Models
     public class OrderDetail
     {
         public int OrderDetailID { get; set; }
+        public int OrderID { get; set; }
+        public int ProductsID { get; set; } 
 
 
         [Required(ErrorMessage = "Product Name is required.")]

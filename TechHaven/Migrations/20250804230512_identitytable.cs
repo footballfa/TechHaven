@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechHaven.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityTable : Migration
+    public partial class identitytable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -262,11 +262,11 @@ namespace TechHaven.Migrations
                 {
                     OrderDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    ProductsID = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(75)", maxLength: 75, nullable: false),
                     Quantaty = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    OrderID = table.Column<int>(type: "int", nullable: false),
-                    ProductsID = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
