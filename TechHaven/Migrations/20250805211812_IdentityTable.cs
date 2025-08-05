@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TechHaven.Migrations
 {
     /// <inheritdoc />
-    public partial class identitytable : Migration
+    public partial class IdentityTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

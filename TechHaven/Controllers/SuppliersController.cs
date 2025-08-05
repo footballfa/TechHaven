@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TechHaven.Areas.Identity.Data;
 using TechHaven.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TechHaven.Controllers
 {
@@ -44,6 +45,7 @@ namespace TechHaven.Controllers
         }
 
         // GET: Suppliers/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -56,7 +58,7 @@ namespace TechHaven.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SuppliersID,SupplierName,SupplierContact,SupplierProduct,DeliveryTime")] Suppliers suppliers)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(suppliers);
                 await _context.SaveChangesAsync();
@@ -66,6 +68,7 @@ namespace TechHaven.Controllers
         }
 
         // GET: Suppliers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +89,7 @@ namespace TechHaven.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("SuppliersID,SupplierName,SupplierContact,SupplierProduct,DeliveryTime")] Suppliers suppliers)
         {
             if (id != suppliers.SuppliersID)
@@ -93,7 +97,7 @@ namespace TechHaven.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -117,6 +121,7 @@ namespace TechHaven.Controllers
         }
 
         // GET: Suppliers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +140,7 @@ namespace TechHaven.Controllers
         }
 
         // POST: Suppliers/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
