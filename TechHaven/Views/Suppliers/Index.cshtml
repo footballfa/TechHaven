@@ -43,9 +43,12 @@
                 @Html.DisplayFor(modelItem => item.DeliveryTime)
             </td>
             <td>
-            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.SuppliersID">Edit</a> |
-            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.SuppliersID">Details</a> |
-            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SuppliersID">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.SuppliersID">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.SuppliersID">Delete</a>
+                    }
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.SuppliersID">Details</a>
             </td>
         </tr>
 }

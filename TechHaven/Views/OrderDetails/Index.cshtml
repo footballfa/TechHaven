@@ -49,9 +49,12 @@
                 @Html.DisplayFor(modelItem => item.Products.ProductName)
             </td>
             <td>
-            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.OrderDetailID">Edit</a> |
-            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.OrderDetailID">Details</a> |
-            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrderDetailID">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Order DetailsID">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Order DetailsID">Delete</a>
+                    }
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Order DetailsID">Details</a>
             </td>
         </tr>
 }

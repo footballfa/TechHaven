@@ -37,9 +37,12 @@
                 @Html.DisplayFor(modelItem => item.LoginCredentials)
             </td>
             <td>
-            <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
-            <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
-            <a class="btn btn-danger" asp-route-id="@item.EmployeeID">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EmployeeID">Delete</a>
+                    }
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a>
             </td>
         </tr>
 }

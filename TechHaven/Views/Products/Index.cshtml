@@ -34,6 +34,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
@@ -50,10 +51,12 @@
                 @Html.DisplayFor(modelItem => item.Suppliers.SupplierName)
             </td>
             <td>
-
-                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductsID">Edit</a> |
-             <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ProductsID">Details</a> |
-             <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductsID">Delete</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ProductsID">Edit</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ProductsID">Delete</a>
+    }
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.ProductsID">Details</a>
             </td>
         </tr>
 }

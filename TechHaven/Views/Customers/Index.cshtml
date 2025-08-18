@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<TechHaven.Models.Customer>
 
 @{
+  
     ViewData["Title"] = "Customer List";
 }
 
@@ -51,9 +52,12 @@
                     </td>
                 <td 
                     style="width:20%;">
-                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.CustomerID">Edit</a> |
-                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.CustomerID">Details</a> |
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CustomerID">Delete</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.CustomerID">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CustomerID">Delete</a>
+                    }
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.CustomerID">Details</a>
                 </td>
             </tr>
         }
