@@ -121,10 +121,10 @@ namespace TechHaven.Areas.Identity.Data
                             new OrderDetail {ProductsID=3,OrderID=3,ProductName = "Xbox Series X", Quantaty = 1, Price = 950},
                             new OrderDetail {ProductsID=4,OrderID=4,ProductName = "Samsung Odyssey G9 Neo", Quantaty = 1, Price = 3500},
                             new OrderDetail {ProductsID=5,OrderID=5,ProductName = "Sony PlayStation 5 Pro (PS5)", Quantaty = 1, Price = 1500},
-                            new OrderDetail {ProductsID = 6, OrderID=6,ProductName = "iPhone 15 Pro Max", Quantaty = 1, Price = 2100},
+                            new OrderDetail {ProductsID=6, OrderID=6,ProductName = "iPhone 15 Pro Max", Quantaty = 1, Price = 2100},
                             new OrderDetail {ProductsID=7,OrderID=7,ProductName = "Sony PlayStation 5 Pro (PS5)", Quantaty = 3, Price = 4500},
-                            new OrderDetail {ProductsID = 8, OrderID=8,ProductName = "Samsung Odyssey G9 Neo", Quantaty = 2, Price = 7000},
-                            new OrderDetail {ProductsID = 9, OrderID=9,ProductName = "iPhone 15 Pro Max", Quantaty = 2, Price = 4200},
+                            new OrderDetail {ProductsID=8, OrderID=8,ProductName = "Samsung Odyssey G9 Neo", Quantaty = 2, Price = 7000},
+                            new OrderDetail {ProductsID=9, OrderID=9,ProductName = "iPhone 15 Pro Max", Quantaty = 2, Price = 4200},
                             new OrderDetail {ProductsID=10,OrderID=10,ProductName = "Sony PlayStation 5 Pro (PS5)", Quantaty = 1, Price = 1500},
 };
             foreach (OrderDetail o in OrderDetails)

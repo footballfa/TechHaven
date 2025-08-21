@@ -87,47 +87,7 @@
 
 
 
-@* 
-@model IEnumerable<TechHaven.Models.Products>
 
-@{
-    ViewData["Title"] = "Products";
-}
-
-<h1>Products</h1>
-
-<p>
-    <a class="btn btn-success" asp-action="Create">Create New</a>
-</p>
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <!-- 3 cards per row on medium+ screens -->
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@item.ProductName</h5>
-                    <p><strong>Price:</strong> @item.Price</p>
-                    <p><strong>Stock:</strong> @item.Stock</p>
-                    <p><strong>Supplier:</strong> @item.Suppliers.SupplierName</p>
-                </div>
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="card-footer">
-                        <a class="btn btn-info btn-sm" asp-action="Edit" asp-route-id="@item.ProductsID">Edit</a>
-                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.ProductsID">Delete</a>
-                    </div>
-                }
-
-                <div class="card-footer">
-                    <a class="btn btn-warning btn-sm" asp-action="Details" asp-route-id="@item.ProductsID">Details</a>
-                </div>
-            </div>
-        </div>
-    }
-</div> *@
 
 
 
