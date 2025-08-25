@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TechHaven.Models.Order>
+﻿
+@model IEnumerable<TechHaven.Models.Order>
 
 @{
     ViewData["Title"] = "Orders";
@@ -50,11 +51,11 @@
                     @Html.DisplayFor(modelItem => item.Employee.EmployeeName)
                 </td>
                 <td>
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                   
+                    
                         <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.OrderID">Edit</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrderID">Delete</a>
-                    }
+                    
                     <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.OrderID">Details</a>
                 </td>
             </tr>

@@ -6,7 +6,7 @@ using TechHaven.Models;
 
 namespace TechHaven.Areas.Identity.Data;
 
-public class TechHavenContext : IdentityDbContext<IdentityUser>
+public class TechHavenContext : IdentityDbContext<TechHavenUser>
 {
     public TechHavenContext(DbContextOptions<TechHavenContext> options)
 : base(options)

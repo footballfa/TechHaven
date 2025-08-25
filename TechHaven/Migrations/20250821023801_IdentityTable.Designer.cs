@@ -12,7 +12,7 @@ using TechHaven.Areas.Identity.Data;
 namespace TechHaven.Migrations
 {
     [DbContext(typeof(TechHavenContext))]
-    [Migration("20250819082609_IdentityTable")]
+    [Migration("20250821023801_IdentityTable")]
     partial class IdentityTable
     {
         /// <inheritdoc />

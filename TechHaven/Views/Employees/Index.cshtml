@@ -1,4 +1,8 @@
-﻿@model IEnumerable<TechHaven.Models.Employee>
+﻿﻿@using Microsoft.AspNetCore.Identity
+@using TechHaven.Areas.Identity.Data
+@inject SignInManager<TechHavenUser> SignInManager
+@inject UserManager<TechHavenUser> UserManager
+@model IEnumerable<TechHaven.Models.Employee>
 
 @{
     ViewData["Title"] = "Employees";
@@ -36,14 +40,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LoginCredentials)
             </td>
-            <td>
-                    @if (User.Identity.IsAuthenticated)
+           
+                    @if (SignInManager.IsSignedIn(User))
                     {
+                        <td>
                         <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a>
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EmployeeID">Delete</a>
+                        <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a>
+                        </td>
                     }
-                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.EmployeeID">Details</a>
-            </td>
+                    
+            
         </tr>
 }
     </tbody>

@@ -7,5 +7,6 @@ namespace TechHaven.Areas.Identity.Data
 {
     public class TechHavenUser: IdentityUser
     {
+
     }
 }

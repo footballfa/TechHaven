@@ -11,6 +11,7 @@ using TechHaven.Models;
 
 namespace TechHaven.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly TechHavenContext _context;
