@@ -7,14 +7,14 @@ namespace TechHaven.Models
         public int CustomerID { get; set; }
 
 
-
+        //first name must start with a capital letter and only contain letters//
         [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
         [Required]
         [StringLength(12, MinimumLength= 1, ErrorMessage = "First name must be between 1 and 12 characters")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-
+        //last name must start with a capital letter and only contain letters//
         [RegularExpression(@"^[A-Z]+[a-zA-Z]*$")]
         [Required]
         [Display(Name = "Last Name")]

@@ -20,7 +20,7 @@ namespace TechHaven.Models
         [StringLength(25)]
         public string EmployeeRole { get; set; }
 
-
+        //Login credentials must be a 4 digit number//
         [Required]
         [Range(1000, 9999, ErrorMessage = "LoginCredentials must be a 4-digit number.")]
         public int LoginCredentials { get; set; }
