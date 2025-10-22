@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using TechHaven.Areas.Identity.Data;
 using TechHaven.Models;
 using Microsoft.AspNetCore.Authorization;
+using TechHaven;
+
 
 namespace TechHaven.Controllers
 {
@@ -21,10 +23,44 @@ namespace TechHaven.Controllers
         }
 
         // GET: OrderDetails
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
-            var techHavenContext = _context.OrderDetail.Include(o => o.Order).Include(o => o.Products);
-            return View(await techHavenContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["ProductNameSortParm"] = sortOrder == "productname" ? "productname_desc" : "productname";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var orderdetails = _context.OrderDetail.AsQueryable();
+
+            // Apply search filter
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                orderdetails = orderdetails.Where(o => o.ProductName.Contains(searchString) || o.ProductName.Contains(searchString));
+            }
+
+            // Apply sorting
+            switch (sortOrder)
+            {
+                case "productname_desc":
+                    orderdetails = orderdetails.OrderByDescending(o => o.ProductName);
+                    break;
+                default:
+                    orderdetails = orderdetails.OrderBy(o => o.ProductName);
+                    break;
+            }
+
+            // Pagination
+            int pageSize = 5;
+            return View(await PaginatedList<OrderDetail>.CreateAsync(orderdetails.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: OrderDetails/Details/5
