@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using TechHaven.Areas.Identity.Data;
 using TechHaven.Models;
+using Microsoft.AspNetCore.Authorization;
+using TechHaven;
+
 
 namespace TechHaven.Controllers
 {
@@ -21,9 +23,44 @@ namespace TechHaven.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
-            return View(await _context.Customer.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["FirstNameSortParm"] = sortOrder == "firstname" ? "firstname_desc" : "firstname";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var customers = _context.Customer.AsQueryable();
+
+            // Apply search filter
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(c => c.FirstName.Contains(searchString) || c.FirstName.Contains(searchString));
+            }
+
+            // Apply sorting
+            switch (sortOrder)
+            {
+                case "firstname_desc":
+                    customers = customers.OrderByDescending(c => c.FirstName);
+                    break;
+                default:
+                    customers = customers.OrderBy(c => c.FirstName);
+                    break;
+            }
+
+            // Pagination
+            int pageSize = 5;
+            return View(await PaginatedList<Customer>.CreateAsync(customers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Customers/Details/5

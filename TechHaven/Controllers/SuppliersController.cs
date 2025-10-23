@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TechHaven.Areas.Identity.Data;
 using TechHaven.Models;
 using Microsoft.AspNetCore.Authorization;
+using TechHaven;
 
 namespace TechHaven.Controllers
 {
@@ -21,9 +22,44 @@ namespace TechHaven.Controllers
         }
 
         // GET: Suppliers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
-            return View(await _context.Suppliers.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["SupplierNameSortParm"] = sortOrder == "suppliername" ? "suppliername_desc" : "suppliername";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var suppliers = _context.Suppliers.AsQueryable();
+
+            // Apply search filter
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                suppliers = suppliers.Where(s => s.SupplierName.Contains(searchString) || s.SupplierName.Contains(searchString));
+            }
+
+            // Apply sorting
+            switch (sortOrder)
+            {
+                case "suppliername_desc":
+                    suppliers = suppliers.OrderByDescending(s => s.SupplierName);
+                    break;
+                default:
+                    suppliers = suppliers.OrderBy(s => s.SupplierName);
+                    break;
+            }
+
+            // Pagination
+            int pageSize = 5;
+            return View(await PaginatedList<Suppliers>.CreateAsync(suppliers.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Suppliers/Details/5
