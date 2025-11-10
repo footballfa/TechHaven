@@ -51,7 +51,7 @@ namespace TechHaven.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address");
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "FirstName");
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName");
             return View();
         }
@@ -70,7 +70,7 @@ namespace TechHaven.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "FirstName", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }
@@ -89,7 +89,7 @@ namespace TechHaven.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "FirstName", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }
@@ -127,7 +127,7 @@ namespace TechHaven.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "Address", order.CustomerID);
+            ViewData["CustomerID"] = new SelectList(_context.Customer, "CustomerID", "FirstName", order.CustomerID);
             ViewData["EmployeeID"] = new SelectList(_context.Employee, "EmployeeID", "EmployeeName", order.EmployeeID);
             return View(order);
         }

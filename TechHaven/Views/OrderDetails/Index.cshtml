@@ -2,6 +2,7 @@
 @model PaginatedList<TechHaven.Models.OrderDetail>
 ﻿@using TechHaven.Models
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore;
 
 @{
     ViewData["Title"] = "Order Details";
@@ -57,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Order.ProductName)
+                @Html.DisplayFor(modelItem => item.Order.OrderDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Products.ProductName)
@@ -65,9 +66,9 @@
             <td>
                    
                     
-                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Order DetailsID">Edit</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Order DetailsID">Delete</a>
-                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Order DetailsID">Details</a>
+                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.OrderDetailID">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrderDetailID">Delete</a>
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.OrderDetailID">Details</a>
             </td>
         </tr>
 }
