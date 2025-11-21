@@ -23,9 +23,7 @@ namespace TechHaven.Models
         [StringLength(100, ErrorMessage = "Product name must be under 100 characters.")]
         public string SupplierProduct { get; set; }
 
-        // Delivery time must be a 4-digit number//
-        [Required(ErrorMessage = "Delivery time is required.")]
-        [Range(0, 9999, ErrorMessage = "Delivery time must be a 4-digit number.")]
+        // Delivery time must be in date format//
         public int DeliveryTime { get; set; }
 
 

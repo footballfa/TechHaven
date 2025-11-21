@@ -56,15 +56,15 @@ namespace TechHaven.Areas.Identity.Data
 
             var Supplier = new Suppliers[]
 {
-                new Suppliers {SupplierName = "Olivia Bennett" , SupplierContact = 0221787597 , DeliveryTime = 1021  , SupplierProduct = "Samsung Monitors" },
-                new Suppliers {SupplierName = "Liam Carter" , SupplierContact = 0222714487 , DeliveryTime = 0624 , SupplierProduct = "Sony"},
-                new Suppliers {SupplierName = "Ava Thompson" , SupplierContact = 0228397878 , DeliveryTime = 8011 , SupplierProduct = "Microsoft Xbox"},
-                new Suppliers {SupplierName = "Noah Patel" , SupplierContact = 0229976385 , DeliveryTime = 1024 , SupplierProduct = "Apple Iphones"},
-                new Suppliers {SupplierName = "Mia Robinson" , SupplierContact = 0214241942 , DeliveryTime = 1011 , SupplierProduct = "Logitech"},
-                new Suppliers {SupplierName = "Ethan Walker" , SupplierContact = 0220668927 , DeliveryTime = 0622 , SupplierProduct = "Samsung Phones"},
-                new Suppliers {SupplierName = "Isabella Mitchell" , SupplierContact = 0228771043 , DeliveryTime = 6012 , SupplierProduct = "Asus Laptops"},
-                new Suppliers {SupplierName = "Lucas Edwards" , SupplierContact = 0210774283 , DeliveryTime = 6011 , SupplierProduct = "HP Laptops"},
-                new Suppliers {SupplierName = "Charlotte Hayes" , SupplierContact = 0227619487 , DeliveryTime = 1010 , SupplierProduct = "Meta Quest"},
+                new Suppliers {SupplierName = "Olivia Bennett" , SupplierContact = 0221787597 , DeliveryTime = 1002  , SupplierProduct = "Samsung Monitors" },
+                new Suppliers {SupplierName = "Liam Carter" , SupplierContact = 0222714487 , DeliveryTime = 1400 , SupplierProduct = "Sony"},
+                new Suppliers {SupplierName = "Ava Thompson" , SupplierContact = 0228397878 , DeliveryTime = 1030 , SupplierProduct = "Microsoft Xbox"},
+                new Suppliers {SupplierName = "Noah Patel" , SupplierContact = 0229976385 , DeliveryTime = 2000 , SupplierProduct = "Apple Iphones"},
+                new Suppliers {SupplierName = "Mia Robinson" , SupplierContact = 0214241942 , DeliveryTime = 1080 , SupplierProduct = "Logitech"},
+                new Suppliers {SupplierName = "Ethan Walker" , SupplierContact = 0220668927 , DeliveryTime = 1050 , SupplierProduct = "Samsung Phones"},
+                new Suppliers {SupplierName = "Isabella Mitchell" , SupplierContact = 0228771043 , DeliveryTime = 1021 , SupplierProduct = "Asus Laptops"},
+                new Suppliers {SupplierName = "Lucas Edwards" , SupplierContact = 0210774283 , DeliveryTime = 1200 , SupplierProduct = "HP Laptops"},
+                new Suppliers {SupplierName = "Charlotte Hayes" , SupplierContact = 0227619487 , DeliveryTime =  1010 , SupplierProduct = "Meta Quest"},
                 new Suppliers {SupplierName = "Jack Morrison" , SupplierContact = 0223878767 , DeliveryTime = 1052 , SupplierProduct = "Bose Headphones" }
 };
 
